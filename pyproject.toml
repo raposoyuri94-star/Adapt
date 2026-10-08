@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "q-adapt"
+version = "0.1.0"
+description = "Algorithms for adaptive refinement of measurements."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+
+maintainers =[
+    {name = "E. F. Souza Lima"},
+    {name = "Yuri Bruce Wayne Raposo"}
+]
+dependencies = [
+    "numpy>=1.23.5",
+    "scipy>=1.10.0",
+    
+]
+
+[project.optional-dependencies]
+examples = ["matplotlib>=3.5.0"]
+dev = [
+    "pytest>=7.0",
+    "mypy>=1.0",
+    "ruff>=0.1.0",
+    "build",
+]
+[project.urls]
+repository = "https://github.com/CosmicLM/Adapt"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["adapt*"]
+namespaces = false

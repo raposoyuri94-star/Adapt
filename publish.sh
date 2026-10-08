@@ -3,8 +3,8 @@
 # Usage: dist_pypi [production]
 # Uses pypi test unless "production is supplied"
 
-pkg_name=$(python setup.py --name)
-version=$(python setup.py --version)
+pkg_name=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['name'])")
+version=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'])")
 echo "DISTRIBUTING $pkg_name VERSION $version"
 
 [[ $1 == "production" ]] && echo "*** PRODUCTION UPLOAD ***" || echo "*** TEST UPLOAD ***"
@@ -13,11 +13,8 @@ read -n 1 -s -r -p "Press any key to continue"
 echo "** Removing dist directory **"
 rm -rf dist
 
-echo "** Creating source distribution **"
-python setup.py sdist
-
-echo "** Creating wheel distribution **"
-python setup.py bdist_wheel
+echo "** Creating source and wheel distributions **"
+python -m build
 
 echo "** Uploading to test pypi **"
 if [[ $1 == "production" ]]; then
